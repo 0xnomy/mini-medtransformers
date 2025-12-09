@@ -1,0 +1,211 @@
+{
+  "accuracy": 0.9166666666666666,
+  "correct": 22,
+  "total": 24,
+  "dropout": 0.4,
+  "num_classes": 8,
+  "categories": {
+    "definition": {
+      "correct": 1,
+      "total": 3
+    },
+    "symptom": {
+      "correct": 3,
+      "total": 3
+    },
+    "treatment": {
+      "correct": 3,
+      "total": 3
+    },
+    "cause": {
+      "correct": 3,
+      "total": 3
+    },
+    "diagnosis": {
+      "correct": 3,
+      "total": 3
+    },
+    "genetics": {
+      "correct": 3,
+      "total": 3
+    },
+    "risk": {
+      "correct": 3,
+      "total": 3
+    },
+    "general": {
+      "correct": 3,
+      "total": 3
+    }
+  },
+  "detailed_results": [
+    {
+      "question": "What is hypertension?",
+      "expected": "definition",
+      "predicted": "definition",
+      "confidence": 0.8617547750473022,
+      "correct": true
+    },
+    {
+      "question": "Can you explain what diabetes mellitus is?",
+      "expected": "definition",
+      "predicted": "genetics",
+      "confidence": 0.5583632588386536,
+      "correct": false
+    },
+    {
+      "question": "What does rheumatoid arthritis mean?",
+      "expected": "definition",
+      "predicted": "cause",
+      "confidence": 0.8352560997009277,
+      "correct": false
+    },
+    {
+      "question": "What are the main symptoms of asthma?",
+      "expected": "symptom",
+      "predicted": "symptom",
+      "confidence": 0.9645202159881592,
+      "correct": true
+    },
+    {
+      "question": "How do I know if I have a fever?",
+      "expected": "symptom",
+      "predicted": "symptom",
+      "confidence": 0.7397281527519226,
+      "correct": true
+    },
+    {
+      "question": "What signs should I look for in pneumonia?",
+      "expected": "symptom",
+      "predicted": "symptom",
+      "confidence": 0.6355613470077515,
+      "correct": true
+    },
+    {
+      "question": "What is the best treatment for a migraine?",
+      "expected": "treatment",
+      "predicted": "treatment",
+      "confidence": 0.482184499502182,
+      "correct": true
+    },
+    {
+      "question": "How can I treat a common cold?",
+      "expected": "treatment",
+      "predicted": "treatment",
+      "confidence": 0.8218316435813904,
+      "correct": true
+    },
+    {
+      "question": "What medications help with arthritis?",
+      "expected": "treatment",
+      "predicted": "treatment",
+      "confidence": 0.9526670575141907,
+      "correct": true
+    },
+    {
+      "question": "What causes type 2 diabetes?",
+      "expected": "cause",
+      "predicted": "cause",
+      "confidence": 0.9743872284889221,
+      "correct": true
+    },
+    {
+      "question": "Why do people get heart disease?",
+      "expected": "cause",
+      "predicted": "cause",
+      "confidence": 0.9660108089447021,
+      "correct": true
+    },
+    {
+      "question": "What causes migraines?",
+      "expected": "cause",
+      "predicted": "cause",
+      "confidence": 0.9736757278442383,
+      "correct": true
+    },
+    {
+      "question": "How is cancer diagnosed?",
+      "expected": "diagnosis",
+      "predicted": "diagnosis",
+      "confidence": 0.7868219017982483,
+      "correct": true
+    },
+    {
+      "question": "What tests are needed to diagnose thyroid disease?",
+      "expected": "diagnosis",
+      "predicted": "diagnosis",
+      "confidence": 0.9200394749641418,
+      "correct": true
+    },
+    {
+      "question": "How do doctors test for COVID-19?",
+      "expected": "diagnosis",
+      "predicted": "diagnosis",
+      "confidence": 0.5876173377037048,
+      "correct": true
+    },
+    {
+      "question": "Is cystic fibrosis inherited?",
+      "expected": "genetics",
+      "predicted": "genetics",
+      "confidence": 0.9682790637016296,
+      "correct": true
+    },
+    {
+      "question": "Can hemophilia be genetic?",
+      "expected": "genetics",
+      "predicted": "genetics",
+      "confidence": 0.9027312994003296,
+      "correct": true
+    },
+    {
+      "question": "Are autism spectrum disorders hereditary?",
+      "expected": "genetics",
+      "predicted": "genetics",
+      "confidence": 0.47223708033561707,
+      "correct": true
+    },
+    {
+      "question": "Who is at risk for stroke?",
+      "expected": "risk",
+      "predicted": "risk",
+      "confidence": 0.9702860713005066,
+      "correct": true
+    },
+    {
+      "question": "What populations are susceptible to malaria?",
+      "expected": "risk",
+      "predicted": "risk",
+      "confidence": 0.8831858038902283,
+      "correct": true
+    },
+    {
+      "question": "Who is more likely to get Alzheimer's?",
+      "expected": "risk",
+      "predicted": "risk",
+      "confidence": 0.9500831365585327,
+      "correct": true
+    },
+    {
+      "question": "Tell me about health.",
+      "expected": "general",
+      "predicted": "general",
+      "confidence": 0.7873055338859558,
+      "correct": true
+    },
+    {
+      "question": "What do you know about medicine?",
+      "expected": "general",
+      "predicted": "general",
+      "confidence": 0.47568291425704956,
+      "correct": true
+    },
+    {
+      "question": "Information about hospitals?",
+      "expected": "general",
+      "predicted": "general",
+      "confidence": 0.9369096159934998,
+      "correct": true
+    }
+  ]
+}
