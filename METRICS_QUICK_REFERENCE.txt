@@ -1,0 +1,249 @@
+"""
+Quick Reference: Available Evaluation Metrics
+==============================================
+
+This file provides a quick lookup for all evaluation metrics implemented in each model.
+
+DECODER-ONLY MODEL (MiniGPT-MedLM)
+==================================
+File: model_decoder_only/train_gpt_medLM.py
+
+Metrics Tracked:
+----------------
+1. Loss (Cross-Entropy)
+   - Training Loss: Per-epoch average
+   - Validation Loss: Per-epoch average
+   - Best model saved based on validation loss
+
+2. Accuracy (Token-Level)
+   - Training Accuracy: Percentage of correctly predicted tokens
+   - Validation Accuracy: Percentage of correctly predicted tokens
+   - Ignores padding tokens in calculation
+
+3. Perplexity
+   - Training Perplexity: exp(train_loss)
+   - Validation Perplexity: exp(val_loss)
+   - Lower is better (measures prediction uncertainty)
+
+4. BLEU Score
+   - Corpus-level BLEU with smoothing
+   - Measures n-gram overlap with references
+   - Range: 0-100 (higher is better)
+   - Calculated on validation set samples
+
+5. ROUGE Scores
+   - ROUGE-1: Unigram overlap
+   - ROUGE-2: Bigram overlap
+   - ROUGE-L: Longest common subsequence
+   - Range: 0-100 (higher is better)
+   - Calculated on validation set samples
+
+6. BERTScore
+   - BERTScore F1: Semantic similarity using BERT embeddings
+   - Range: 0-100 (higher is better)
+   - Captures semantic meaning beyond surface form
+
+Output Files:
+-------------
+- miniGPT_medLM.pt: Best model checkpoint
+- training_history.json: All metrics by epoch
+- comprehensive_metrics.png: 6-panel visualization
+- training_curve.png: Simple loss curve
+
+
+ENCODER-ONLY MODEL (MiniBERT-MedQ)
+===================================
+File: model_encoder_only/step5_train_model_MedQ.py
+
+Metrics Tracked:
+----------------
+1. Loss (Cross-Entropy with Label Smoothing)
+   - Training Loss: Per-epoch average
+   - Validation Loss: Per-epoch average
+   - Best model saved based on validation F1
+
+2. Accuracy
+   - Training Accuracy: Percentage of correctly classified samples
+   - Validation Accuracy: Percentage of correctly classified samples
+   - Test Accuracy: Final test set performance
+
+3. F1 Score
+   - Training F1 (Macro): Average F1 across all classes
+   - Validation F1 (Macro): Average F1 across all classes
+   - Test F1 (Macro): Final test set performance
+   - Per-Class F1: Individual F1 for each of 8 medical categories
+
+4. Precision (Macro)
+   - Training Precision: Average precision across all classes
+   - Validation Precision: Average precision across all classes
+   - Test Precision: Final test set performance
+
+5. Recall (Macro)
+   - Training Recall: Average recall across all classes
+   - Validation Recall: Average recall across all classes
+   - Test Recall: Final test set performance
+
+6. Confusion Matrix
+   - Test Confusion Matrix: Shows prediction patterns
+   - Visualized as heatmap
+   - Helps identify which classes are confused
+
+7. Per-Class Metrics
+   - Individual F1, Precision, Recall for each class:
+     * cause
+     * definition
+     * diagnosis
+     * general
+     * genetics
+     * risk
+     * symptom
+     * treatment
+
+Output Files:
+-------------
+- miniBERT_medQ_best.pt: Best model checkpoint
+- results.json: All metrics and history
+- comprehensive_metrics.png: 8-panel visualization
+- confusion_matrix.png: Standalone confusion matrix
+
+
+INTERPRETATION GUIDE
+====================
+
+Loss:
+- Lower is better
+- Measures how wrong the model's predictions are
+- Should decrease during training
+
+Accuracy:
+- Range: 0.0 to 1.0 (or 0% to 100%)
+- Higher is better
+- Simple measure of correct predictions
+
+F1 Score:
+- Range: 0.0 to 1.0
+- Harmonic mean of precision and recall
+- Useful for imbalanced datasets
+- Higher is better
+
+Precision:
+- Range: 0.0 to 1.0
+- Of all positive predictions, how many were correct?
+- High precision = few false positives
+
+Recall:
+- Range: 0.0 to 1.0
+- Of all actual positives, how many did we find?
+- High recall = few false negatives
+
+Perplexity:
+- Range: 1 to infinity
+- Lower is better
+- Measures prediction uncertainty
+- Perplexity of 100 means model is as confused as if choosing randomly from 100 words
+
+BLEU:
+- Range: 0 to 100
+- Higher is better
+- Good for checking if generated text uses similar words to reference
+- BLEU > 30 is generally good for medical text
+
+ROUGE:
+- Range: 0 to 100
+- Higher is better
+- ROUGE-L often most informative (longest common subsequence)
+- Good for measuring text overlap
+
+BERTScore:
+- Range: 0 to 100
+- Higher is better
+- Captures semantic similarity
+- More sophisticated than BLEU/ROUGE
+- BERTScore > 70 indicates good semantic alignment
+
+
+RUNNING THE MODELS
+===================
+
+Decoder Model (MedLM):
+----------------------
+D:/project/.venv/Scripts/python.exe model_decoder_only/train_gpt_medLM.py
+
+Expected Output:
+- Training progress with all metrics per epoch
+- Final metrics summary
+- Comprehensive visualization plot
+- Sample text generation
+
+Training Time: ~5-15 minutes (depends on GPU)
+
+
+Encoder Model (MedQ):
+---------------------
+D:/project/.venv/Scripts/python.exe model_encoder_only/step5_train_model_MedQ.py
+
+Optional Arguments:
+--use_conversational    Use conversational training data
+--use_augmented        Use augmented training data
+--use_improved         Use improved training data
+--validate_on_custom   Use custom questions for validation
+
+Expected Output:
+- Training progress with all metrics per epoch
+- Test set evaluation with classification report
+- Final metrics comparison
+- Comprehensive visualizations
+- Sample predictions
+
+Training Time: ~3-10 minutes (depends on GPU and dataset)
+
+
+VIEWING RESULTS
+===============
+
+JSON History Files:
+-------------------
+import json
+
+# Decoder model
+with open('artifacts/medLM_models/training_history.json') as f:
+    history = json.load(f)
+    print(f"Final BLEU: {history['bleu'][-1]}")
+
+# Encoder model
+with open('artifacts/medQ_models/results.json') as f:
+    results = json.load(f)
+    print(f"Test F1: {results['test_f1']}")
+
+Visualization Files:
+--------------------
+Open the PNG files in any image viewer:
+- artifacts/medLM_models/comprehensive_metrics.png
+- artifacts/medQ_models/comprehensive_metrics.png
+- artifacts/medQ_models/confusion_matrix.png
+
+
+TROUBLESHOOTING
+===============
+
+Issue: "Module not found" errors
+Solution: Ensure packages are installed:
+  D:/project/.venv/Scripts/python.exe -m pip install nltk rouge-score bert-score sacrebleu
+
+Issue: CUDA out of memory
+Solution: Reduce BATCH_SIZE in the training script
+
+Issue: Slow generation metrics calculation
+Solution: Generation metrics are already sampled. To make faster, reduce max_samples parameter
+  in evaluate_generation_metrics() function
+
+Issue: NaN in metrics
+Solution: Check learning rate, may need to reduce it. Also check for data issues.
+
+
+CONTACT & SUPPORT
+=================
+
+For issues or questions about the evaluation metrics implementation,
+review the EVALUATION_METRICS_SUMMARY.md file for detailed technical information.
+"""
